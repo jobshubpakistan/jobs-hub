@@ -1,13 +1,1 @@
-const jobs=[
- {title:'Office Assistant',location:'Multiple Locations',type:'Full Time'},
- {title:'Customer Support Representative',location:'Multiple Locations',type:'Full Time'},
- {title:'Sales Executive',location:'Multiple Locations',type:'Full Time'}
-];
-const grid=document.getElementById('jobGrid');
-grid.innerHTML=jobs.map((j,i)=>`<div class="job"><h3>${j.title}</h3><div class="meta">📍 ${j.location}<br>💼 ${j.type}</div><button class="btn" onclick="openApply(${i})">Apply Now</button></div>`).join('');
-function openModal(){document.getElementById('modal').style.display='flex'}
-function closeModal(){document.getElementById('modal').style.display='none'}
-function openApply(i){document.getElementById('jobTitle').textContent='Apply: '+jobs[i].title;document.getElementById('applyModal').style.display='flex'}
-function closeApply(){document.getElementById('applyModal').style.display='none'}
-function register(e){e.preventDefault();document.getElementById('formMsg').textContent='Demo account created. Connect this form to a secure database before launch.'}
-function apply(e){e.preventDefault();document.getElementById('applyMsg').textContent='Demo application saved. Connect a legitimate payment gateway and secure application database before accepting real users.'}
+function openApply(job){document.getElementById("jobTitle").textContent="Apply for "+job;document.getElementById("applyModal").classList.add("show")}function closeModal(){document.getElementById("applyModal").classList.remove("show")}function submitApplication(e){e.preventDefault();alert("Application details saved. Please continue only after reviewing all job terms and requirements.");closeModal()}function filterJobs(category){document.querySelectorAll(".job-card").forEach(card=>{card.style.display=(category==="all"||card.dataset.category===category)?"block":"none"});document.getElementById("jobs").scrollIntoView({behavior:"smooth"})}function searchJobs(){const q=document.getElementById("searchInput").value.toLowerCase();document.querySelectorAll(".job-card").forEach(card=>{card.style.display=card.innerText.toLowerCase().includes(q)?"block":"none"});document.getElementById("jobs").scrollIntoView({behavior:"smooth"})}

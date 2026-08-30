@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -7,90 +7,152 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<header>
-  <div class="logo">JOBS <span>HUB</span></div>
-  <nav><a href="#jobs">Jobs</a><a href="#how">How It Works</a><a href="#contact">Contact</a></nav>
-  <button class="btn" onclick="openModal()">Create Account</button>
-</header>
+  <header class="topbar">
+    <div class="brand">JOBS<span>HUB</span></div>
+    <nav>
+      <a href="#jobs">Browse Jobs</a>
+      <a href="#categories">Categories</a>
+      <a href="#how">How It Works</a>
+    </nav>
+    <a class="post-btn" href="#jobs">Find a Job</a>
+  </header>
 
-<main>
-<section class="hero">
-  <div>
-    <p class="eyebrow">CAREER OPPORTUNITIES</p>
-    <h1>Find Your Next <span>Opportunity.</span></h1>
-    <p>Browse available opportunities and submit your application online. Eligible candidates may be contacted after application review.</p>
-    <div class="actions">
-      <a class="btn" href="#jobs">Browse Jobs</a>
-      <button class="btn secondary" onclick="openModal()">Create Account</button>
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="badge">NEW OPPORTUNITIES AVAILABLE</div>
+        <h1>Find a Job You’ll <span>Love</span></h1>
+        <p>Browse available opportunities, view job details, and submit your application in a simple process.</p>
+        <div class="search-box">
+          <input id="searchInput" type="text" placeholder="Search jobs, skills or categories" />
+          <button onclick="searchJobs()">Search Jobs</button>
+        </div>
+        <div class="stats">
+          <div><strong>50+</strong><span>Open Jobs</span></div>
+          <div><strong>10+</strong><span>Categories</span></div>
+          <div><strong>Easy</strong><span>Application</span></div>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1000&q=85" alt="Professionals working together" />
+        <div class="floating-card">
+          <span>🔥 Popular today</span>
+          <strong>New jobs added</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="categories" id="categories">
+      <div class="section-title">
+        <div><span class="eyebrow">EXPLORE BY FIELD</span><h2>Popular Job Categories</h2></div>
+      </div>
+      <div class="category-grid">
+        <button onclick="filterJobs('Office')" class="category"><span>💼</span><b>Office & Admin</b><small>View jobs →</small></button>
+        <button onclick="filterJobs('Technology')" class="category"><span>💻</span><b>Technology</b><small>View jobs →</small></button>
+        <button onclick="filterJobs('Sales')" class="category"><span>📈</span><b>Sales</b><small>View jobs →</small></button>
+        <button onclick="filterJobs('Healthcare')" class="category"><span>🏥</span><b>Healthcare</b><small>View jobs →</small></button>
+        <button onclick="filterJobs('Driving')" class="category"><span>🚚</span><b>Driving</b><small>View jobs →</small></button>
+        <button onclick="filterJobs('Customer')" class="category"><span>🎧</span><b>Customer Service</b><small>View jobs →</small></button>
+      </div>
+    </section>
+
+    <section class="jobs-section" id="jobs">
+      <div class="section-title">
+        <div><span class="eyebrow">LATEST OPENINGS</span><h2>Featured Jobs</h2><p>Choose a job that matches your skills and apply directly.</p></div>
+        <button class="outline" onclick="filterJobs('all')">Show All Jobs</button>
+      </div>
+
+      <div class="jobs-grid" id="jobsGrid">
+        <article class="job-card" data-category="Office">
+          <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=900&q=80" alt="Modern office" />
+          <div class="job-content">
+            <div class="job-meta"><span class="tag">FULL TIME</span><span>📍 Available Location</span></div>
+            <h3>Office Assistant</h3>
+            <p>Support daily office operations and administrative work.</p>
+            <div class="job-footer"><span>💰 Salary details available</span><button onclick="openApply('Office Assistant')">Apply Now</button></div>
+          </div>
+        </article>
+
+        <article class="job-card" data-category="Technology">
+          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80" alt="Technology professional" />
+          <div class="job-content">
+            <div class="job-meta"><span class="tag">FULL TIME</span><span>💻 Technology</span></div>
+            <h3>Computer Operator</h3>
+            <p>Handle computer systems, records, and routine digital tasks.</p>
+            <div class="job-footer"><span>📌 Experience preferred</span><button onclick="openApply('Computer Operator')">Apply Now</button></div>
+          </div>
+        </article>
+
+        <article class="job-card" data-category="Customer">
+          <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=80" alt="Customer service team" />
+          <div class="job-content">
+            <div class="job-meta"><span class="tag">OPEN NOW</span><span>🎧 Customer Service</span></div>
+            <h3>Customer Support Agent</h3>
+            <p>Assist customers and respond to service-related queries.</p>
+            <div class="job-footer"><span>🕒 Multiple shifts</span><button onclick="openApply('Customer Support Agent')">Apply Now</button></div>
+          </div>
+        </article>
+
+        <article class="job-card" data-category="Sales">
+          <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=900&q=80" alt="Business meeting" />
+          <div class="job-content">
+            <div class="job-meta"><span class="tag">HIRING</span><span>📈 Sales</span></div>
+            <h3>Sales Executive</h3>
+            <p>Help grow customer relationships and support sales targets.</p>
+            <div class="job-footer"><span>⭐ Incentives may apply</span><button onclick="openApply('Sales Executive')">Apply Now</button></div>
+          </div>
+        </article>
+
+        <article class="job-card" data-category="Driving">
+          <img src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=900&q=80" alt="Vehicle on road" />
+          <div class="job-content">
+            <div class="job-meta"><span class="tag">FULL TIME</span><span>🚚 Driving</span></div>
+            <h3>Delivery Driver</h3>
+            <p>Deliver assigned orders safely and professionally.</p>
+            <div class="job-footer"><span>🚗 Valid license required</span><button onclick="openApply('Delivery Driver')">Apply Now</button></div>
+          </div>
+        </article>
+
+        <article class="job-card" data-category="Healthcare">
+          <img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=900&q=80" alt="Healthcare professional" />
+          <div class="job-content">
+            <div class="job-meta"><span class="tag">OPEN NOW</span><span>🏥 Healthcare</span></div>
+            <h3>Healthcare Assistant</h3>
+            <p>Support healthcare staff and assist with daily duties.</p>
+            <div class="job-footer"><span>📋 Relevant skills needed</span><button onclick="openApply('Healthcare Assistant')">Apply Now</button></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="how" id="how">
+      <span class="eyebrow">SIMPLE PROCESS</span>
+      <h2>How Jobs Hub Works</h2>
+      <div class="steps">
+        <div><span>01</span><h3>Create Account</h3><p>Enter your basic information securely.</p></div>
+        <div><span>02</span><h3>Choose a Job</h3><p>Review available jobs and their requirements.</p></div>
+        <div><span>03</span><h3>Submit Application</h3><p>Send your application and receive further updates.</p></div>
+      </div>
+      <p class="notice">Important: Applying for a job does not guarantee employment. Any fee or service charge must be clearly explained before payment.</p>
+    </section>
+  </main>
+
+  <div class="modal" id="applyModal">
+    <div class="modal-box">
+      <button class="close" onclick="closeModal()">×</button>
+      <span class="eyebrow">JOB APPLICATION</span>
+      <h2 id="jobTitle">Apply</h2>
+      <form onsubmit="submitApplication(event)">
+        <input required placeholder="Full Name" />
+        <input required type="email" placeholder="Email Address" />
+        <input required placeholder="Phone Number" />
+        <button type="submit">Continue Application</button>
+      </form>
+      <p class="small">You should only proceed after reviewing the job details and any clearly disclosed terms.</p>
     </div>
   </div>
-  <div class="hero-card">
-    <h3>Ready to apply?</h3>
-    <div class="step"><b>1</b><span>Create your account</span></div>
-    <div class="step"><b>2</b><span>Choose an opportunity</span></div>
-    <div class="step"><b>3</b><span>Submit your application</span></div>
-  </div>
-</section>
 
-<section id="jobs" class="section">
-  <p class="eyebrow">AVAILABLE OPPORTUNITIES</p>
-  <h2>Explore Jobs</h2>
-  <div id="jobGrid" class="grid"></div>
-</section>
-
-<section id="how" class="section light">
-  <p class="eyebrow">SIMPLE PROCESS</p>
-  <h2>How Jobs Hub Works</h2>
-  <div class="grid three">
-    <div class="info"><h3>Create Account</h3><p>Register with your basic contact information.</p></div>
-    <div class="info"><h3>Apply Online</h3><p>Select an opportunity and complete your application.</p></div>
-    <div class="info"><h3>Application Review</h3><p>Eligible candidates may be contacted regarding next steps.</p></div>
-  </div>
-</section>
-
-<section class="notice">
-  <h2>Important Information</h2>
-  <p>Any application or processing fee must be clearly disclosed before payment. Payment does not guarantee employment or selection. Applications are subject to eligibility and employer review.</p>
-</section>
-
-<section id="contact" class="section">
-  <h2>Contact Jobs Hub</h2>
-  <p>Add your official phone number, email address and business details here before publishing.</p>
-</section>
-</main>
-
-<div id="modal" class="modal">
-  <div class="modal-box">
-    <button class="close" onclick="closeModal()">×</button>
-    <h2>Create Your Account</h2>
-    <form onsubmit="register(event)">
-      <input required placeholder="Full Name" />
-      <input required type="tel" placeholder="Mobile Number" />
-      <input required type="email" placeholder="Email Address" />
-      <input required type="password" placeholder="Password" />
-      <button class="btn full">Create Account</button>
-    </form>
-    <p id="formMsg"></p>
-  </div>
-</div>
-
-<div id="applyModal" class="modal">
-  <div class="modal-box">
-    <button class="close" onclick="closeApply()">×</button>
-    <h2 id="jobTitle">Apply</h2>
-    <form onsubmit="apply(event)">
-      <input required placeholder="Full Name" />
-      <input required type="tel" placeholder="Mobile Number" />
-      <input required type="email" placeholder="Email Address" />
-      <label>CV / Resume <input type="file" accept=".pdf,.doc,.docx" /></label>
-      <div class="fee-box">Application processing fee: <b>Rs. 500</b><br><small>Payment does not guarantee employment or selection.</small></div>
-      <button class="btn full">Continue to Payment</button>
-    </form>
-    <p id="applyMsg"></p>
-  </div>
-</div>
-
-<footer>© 2026 Jobs Hub. All rights reserved.</footer>
-<script src="script.js"></script>
+  <footer>© 2026 Jobs Hub — Find Your Next Opportunity</footer>
+  <script src="script.js"></script>
 </body>
 </html>
