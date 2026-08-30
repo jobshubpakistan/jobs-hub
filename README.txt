@@ -1,16 +1,13 @@
-JOBS HUB PROFESSIONAL DESIGN + PRIVATE ADMIN
+JOBS HUB — ADMIN ONLY VERSION
 
-This version preserves the earlier professional JobsHub design and payment flow.
+1. Upload index.html, style.css and script.js to GitHub.
+2. Open script.js.
+The admin password has already been set in script.js.
+Upload the three files directly to GitHub.
 
-Admin access:
-- Public payment confirmation section is removed.
-- A discreet Admin Login button is placed in the footer.
-- Password is already set to the user's chosen password.
-- After login, the existing payment confirmation panel opens.
+The Admin Panel is removed from the public page.
+Only the Admin Login button in the footer opens the password screen.
 
-Upload these 3 files to GitHub:
-1. index.html
-2. style.css
-3. script.js
-
-Then commit changes and refresh the live website.
+IMPORTANT:
+Because this is a static GitHub Pages website, a client-side password is only a basic hide/login method.
+For true production security, Firebase Authentication and database security rules should be used.
