@@ -3,67 +3,86 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JobsHub | Find Your Next Job</title>
+<title>JobsHub — Find Your Next Opportunity</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<header>
-  <a href="#home" class="logo"><span>J</span> JobsHub</a>
-  <nav>
-    <a href="#jobs">Jobs</a>
-    <a href="#how">How It Works</a>
-    <a href="#contact">Contact</a>
+<header class="header">
+  <a class="brand" href="#home"><span class="brand-mark">J</span>JobsHub</a>
+  <nav class="nav">
+    <a href="#jobs">Browse Jobs</a><a href="#categories">Categories</a>
+    <a href="#how">How It Works</a><a href="#contact">Contact</a>
   </nav>
-  <div id="accountArea"></div>
+  <div class="header-actions" id="headerActions"></div>
 </header>
 
-<section class="hero" id="home">
-  <div>
-    <p class="eyebrow">JOB OPPORTUNITIES</p>
-    <h1>Find a job that <em>moves your life forward.</em></h1>
-    <p class="heroText">Create an account, browse available jobs, submit your payment reference for review, and apply after confirmation.</p>
-    <a class="btn" href="#jobs">Browse Jobs</a>
+<main id="home">
+<section class="hero">
+ <div class="hero-content">
+  <div class="eyebrow">VERIFIED JOB OPPORTUNITIES</div>
+  <h1>Find the job that<br><span>moves your life forward.</span></h1>
+  <p>Create your account, browse opportunities, compare salary and requirements, then continue with your application.</p>
+  <div class="search-panel">
+   <div class="search-field">⌕ <input id="searchInput" placeholder="Job title, skill or keyword"></div>
+   <div class="search-field">⌖ <input id="locationInput" placeholder="City or remote"></div>
+   <button class="primary" id="searchBtn">Search Jobs</button>
   </div>
+ </div>
 </section>
 
-<main>
-<section id="jobs">
-  <p class="eyebrow">AVAILABLE JOBS</p>
-  <h2>Find your opportunity</h2>
-  <div id="jobGrid" class="jobGrid"></div>
+<section class="section" id="jobs">
+ <div class="section-heading"><div><span class="eyebrow">EXPLORE OPPORTUNITIES</span><h2>Find your perfect job</h2></div></div>
+ <div class="filters">
+  <button class="filter active" data-filter="All">All Jobs</button>
+  <button class="filter" data-filter="Engineering">Engineering</button>
+  <button class="filter" data-filter="Healthcare">Healthcare</button>
+  <button class="filter" data-filter="Technology">Technology</button>
+  <button class="filter" data-filter="Finance">Finance</button>
+  <button class="filter" data-filter="Design">Design</button>
+ </div>
+ <div class="job-grid" id="jobGrid"></div>
 </section>
 
-<section id="how" class="how">
-  <p class="eyebrow">HOW IT WORKS</p>
-  <h2>A simple application process</h2>
-  <div class="steps">
-    <article><b>01</b><h3>Create Account</h3><p>Create your JobsHub account and sign in.</p></article>
-    <article><b>02</b><h3>Choose a Job</h3><p>Browse jobs and select the opportunity you want.</p></article>
-    <article><b>03</b><h3>Submit Payment</h3><p>Pay the Rs. 500 application fee and send your transaction reference.</p></article>
-    <article><b>04</b><h3>Apply</h3><p>After manual payment confirmation, submit your application.</p></article>
+<section class="section" id="categories">
+ <span class="eyebrow">BROWSE BY FIELD</span><h2>What are you looking for?</h2>
+ <div class="category-grid">
+  <button>⚙️ <strong>Engineering</strong><span>Career opportunities</span></button>
+  <button>🩺 <strong>Healthcare</strong><span>Career opportunities</span></button>
+  <button>💻 <strong>Technology</strong><span>Career opportunities</span></button>
+  <button>📈 <strong>Finance</strong><span>Career opportunities</span></button>
+  <button>🎨 <strong>Design</strong><span>Career opportunities</span></button>
+  <button>📣 <strong>Marketing</strong><span>Career opportunities</span></button>
+ </div>
+</section>
+
+<section class="how section" id="how">
+ <div class="how-intro"><span class="eyebrow">SIMPLE PROCESS</span><h2>From account to application<br>in a few simple steps.</h2></div>
+ <div class="steps">
+  <article><span>01</span><h3>Create Account</h3><p>Create and sign in to your JobsHub account.</p></article>
+  <article><span>02</span><h3>Browse Jobs</h3><p>Check salary, location and job requirements.</p></article>
+  <article><span>03</span><h3>Pay & Apply</h3><p>Choose a payment method, complete the required fee and continue your application.</p></article>
+ </div>
+</section>
+
+<section class="contact section" id="contact">
+ <div class="contact-card">
+  <span class="eyebrow">CONTACT US</span><h2>Need help with your job application?</h2>
+  <p>Our support team is here to help with account and application questions.</p>
+  <div class="contact-grid">
+   <div class="contact-item"><span>📧</span><div><strong>Email</strong><p>support@jobshub.com</p></div></div>
+   <div class="contact-item"><span>📞</span><div><strong>Phone</strong><p>+1 (202) 555-0147</p></div></div>
+   <div class="contact-item"><span>🕒</span><div><strong>Support Hours</strong><p>Monday – Friday, 9 AM – 5 PM EST</p></div></div>
   </div>
-</section>
-
-
-<section id="contact" class="contact">
-  <p class="eyebrow">CONTACT</p>
-  <h2>Need help?</h2>
-  <p>Email: support@jobshub.com</p>
-  <p>Phone: +1 (202) 555-0147</p>
+ </div>
 </section>
 </main>
 
-<footer><span>© 2026 JobsHub</span><button class="adminLink" id="adminButton">Admin Login</button></footer>
+<footer><a class="brand" href="#home"><span class="brand-mark">J</span>JobsHub</a><span>© 2026 JobsHub.</span> <button class="admin-login-link" id="openAdminBtn">Admin Login</button></footer>
 
 <div class="modal hidden" id="modal">
-  <div class="overlay" id="overlay"></div>
-  <div class="modalContent">
-    <button class="close" id="closeModal">×</button>
-    <div id="modalBody"></div>
-  </div>
+ <div class="modal-backdrop" id="modalBackdrop"></div>
+ <div class="modal-box"><button class="close" id="closeModal">×</button><div id="modalContent"></div></div>
 </div>
-
-<script type="module" src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
