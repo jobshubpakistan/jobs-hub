@@ -189,6 +189,26 @@ function showApplication(){
  };
 }
 
+
+function showAdminLogin(){
+ openModal();
+ modalBody.innerHTML=`<p class="eyebrow">PRIVATE ACCESS</p><h2>Admin Login</h2>
+ <div class="notice">This area is only for the website administrator.</div>
+ <form class="form" id="adminLoginForm">
+   <input id="adminPassword" type="password" placeholder="Enter admin password" required>
+   <button class="btn">Open Admin Panel</button>
+ </form>`;
+ $("adminLoginForm").onsubmit=e=>{
+   e.preventDefault();
+   if($("adminPassword").value!=="bilal302200"){
+     alert("Incorrect admin password.");
+     return;
+   }
+   sessionStorage.setItem("jobshubAdmin","true");
+   showAdmin();
+ };
+}
+
 async function showAdmin(){
  openModal();
  modalBody.innerHTML=`<p class="eyebrow">ADMIN PANEL</p><h2>Payment Review</h2><div class="notice">Loading Firebase payments...</div>`;
@@ -207,7 +227,10 @@ async function showAdmin(){
  }catch(err){modalBody.innerHTML=`<h2>Firebase Error</h2><div class="notice warning">${err.message}</div>`;}
 }
 
-$("adminButton").onclick=showAdmin;
+$("adminButton").onclick=()=>{
+ if(sessionStorage.getItem("jobshubAdmin")==="true") showAdmin();
+ else showAdminLogin();
+};
 $("closeModal").onclick=closeModal;
 $("overlay").onclick=closeModal;
 renderAccount();
