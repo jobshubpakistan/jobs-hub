@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jobs Hub | Find Your Next Opportunity</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header>
+  <div class="logo">JOBS <span>HUB</span></div>
+  <nav><a href="#jobs">Jobs</a><a href="#how">How It Works</a><a href="#contact">Contact</a></nav>
+  <button class="btn" onclick="openModal()">Create Account</button>
+</header>
+
+<main>
+<section class="hero">
+  <div>
+    <p class="eyebrow">CAREER OPPORTUNITIES</p>
+    <h1>Find Your Next <span>Opportunity.</span></h1>
+    <p>Browse available opportunities and submit your application online. Eligible candidates may be contacted after application review.</p>
+    <div class="actions">
+      <a class="btn" href="#jobs">Browse Jobs</a>
+      <button class="btn secondary" onclick="openModal()">Create Account</button>
+    </div>
+  </div>
+  <div class="hero-card">
+    <h3>Ready to apply?</h3>
+    <div class="step"><b>1</b><span>Create your account</span></div>
+    <div class="step"><b>2</b><span>Choose an opportunity</span></div>
+    <div class="step"><b>3</b><span>Submit your application</span></div>
+  </div>
+</section>
+
+<section id="jobs" class="section">
+  <p class="eyebrow">AVAILABLE OPPORTUNITIES</p>
+  <h2>Explore Jobs</h2>
+  <div id="jobGrid" class="grid"></div>
+</section>
+
+<section id="how" class="section light">
+  <p class="eyebrow">SIMPLE PROCESS</p>
+  <h2>How Jobs Hub Works</h2>
+  <div class="grid three">
+    <div class="info"><h3>Create Account</h3><p>Register with your basic contact information.</p></div>
+    <div class="info"><h3>Apply Online</h3><p>Select an opportunity and complete your application.</p></div>
+    <div class="info"><h3>Application Review</h3><p>Eligible candidates may be contacted regarding next steps.</p></div>
+  </div>
+</section>
+
+<section class="notice">
+  <h2>Important Information</h2>
+  <p>Any application or processing fee must be clearly disclosed before payment. Payment does not guarantee employment or selection. Applications are subject to eligibility and employer review.</p>
+</section>
+
+<section id="contact" class="section">
+  <h2>Contact Jobs Hub</h2>
+  <p>Add your official phone number, email address and business details here before publishing.</p>
+</section>
+</main>
+
+<div id="modal" class="modal">
+  <div class="modal-box">
+    <button class="close" onclick="closeModal()">×</button>
+    <h2>Create Your Account</h2>
+    <form onsubmit="register(event)">
+      <input required placeholder="Full Name" />
+      <input required type="tel" placeholder="Mobile Number" />
+      <input required type="email" placeholder="Email Address" />
+      <input required type="password" placeholder="Password" />
+      <button class="btn full">Create Account</button>
+    </form>
+    <p id="formMsg"></p>
+  </div>
+</div>
+
+<div id="applyModal" class="modal">
+  <div class="modal-box">
+    <button class="close" onclick="closeApply()">×</button>
+    <h2 id="jobTitle">Apply</h2>
+    <form onsubmit="apply(event)">
+      <input required placeholder="Full Name" />
+      <input required type="tel" placeholder="Mobile Number" />
+      <input required type="email" placeholder="Email Address" />
+      <label>CV / Resume <input type="file" accept=".pdf,.doc,.docx" /></label>
+      <div class="fee-box">Application processing fee: <b>Rs. 500</b><br><small>Payment does not guarantee employment or selection.</small></div>
+      <button class="btn full">Continue to Payment</button>
+    </form>
+    <p id="applyMsg"></p>
+  </div>
+</div>
+
+<footer>© 2026 Jobs Hub. All rights reserved.</footer>
+<script src="script.js"></script>
+</body>
+</html>
