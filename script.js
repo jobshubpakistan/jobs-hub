@@ -1,3 +1,18 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { getDatabase, ref, push, set, get, update, onValue } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBnNGcIA8c2YTco9-zlX57XGLdH_fnk9ME",
+  authDomain: "jobshub-949bf.firebaseapp.com",
+  projectId: "jobshub-949bf",
+  storageBucket: "jobshub-949bf.firebasestorage.app",
+  messagingSenderId: "424889281729",
+  appId: "1:424889281729:web:871f69acdba330828f3840",
+  databaseURL: "https://jobshub-949bf-default-rtdb.firebaseio.com"
+};
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
 
 const jobs=[
 {title:'Civil Engineer',category:'Engineering',location:'Lahore',salary:'Rs. 120,000 / month',image:'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=900&q=80',desc:'Work on construction planning, site development and engineering projects.'},
@@ -12,10 +27,8 @@ const $=id=>document.getElementById(id);
 
 function getUser(){try{return JSON.parse(localStorage.getItem('jobshubUser'))}catch{return null}}
 function setUser(u){localStorage.setItem('jobshubUser',JSON.stringify(u))}
-function getPayments(){try{return JSON.parse(localStorage.getItem('jobshubPayments'))||[]}catch{return []}}
-function setPayments(x){localStorage.setItem('jobshubPayments',JSON.stringify(x))}
-function getApps(){try{return JSON.parse(localStorage.getItem('jobshubApplications'))||[]}catch{return []}}
-function setApps(x){localStorage.setItem('jobshubApplications',JSON.stringify(x))}
+async function getPayments(){const x=await get(ref(db,'payments'));return x.exists()?Object.entries(x.val()).map(([id,v])=>({...v,id})):[]}
+async function getApps(){const x=await get(ref(db,'applications'));return x.exists()?Object.entries(x.val()).map(([id,v])=>({...v,id})):[]}
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
 function openModal(){modal.classList.remove('hidden')}
 function hideModal(){modal.classList.add('hidden')}
@@ -64,13 +77,13 @@ function startApply(title){
  continueFlow(title);
 }
 
-function continueFlow(title){
+async function continueFlow(title){
  const u=getUser();
- const apps=getApps();
+ const apps=await getApps();
  if(apps.some(a=>a.email===u.email && a.job===title)){
    openModal();modalContent.innerHTML=`<div class="application-success"><h2>✓ Already Applied</h2><p>You have already submitted your application for <strong>${title}</strong>.</p><button class="primary" id="doneBtn">Done</button></div>`;$('doneBtn').onclick=hideModal;return;
  }
- const p=getPayments().find(x=>x.email===u.email && x.job===title);
+ const p=(await getPayments()).find(x=>x.email===u.email && x.job===title);
  if(!p){showPayment(title);return}
  if(p.status==='pending'){
    openModal();modalContent.innerHTML=`<span class="eyebrow">PAYMENT UNDER REVIEW</span><h2>Payment submitted</h2><div class="notice">Your Rs. 500 payment reference has been submitted for manual review. Please wait for the admin to confirm payment. After confirmation, a website notification will unlock your application.</div><div class="payment-summary"><strong>Job:</strong> ${title}<br><strong>Method:</strong> ${p.method}<br><strong>Transaction ID:</strong> ${p.transaction}<br><strong>Phone:</strong> ${p.phone}</div><button class="primary" id="doneBtn">Done</button></div>`;$('doneBtn').onclick=hideModal;return;
@@ -92,11 +105,11 @@ function selectPayment(method,number){
  const btnId=method==='JazzCash'?'jazzBtn':method==='Easypaisa'?'easyBtn':'upaisaBtn';
  $(btnId).classList.add('selected');payDetail.classList.add('active');
  payDetail.innerHTML=`<strong>Pay Rs. 500 via ${method}</strong><p><strong>Account Name: Bilal Munir</strong></p><p>Send payment to:</p><div class="account-number">${number}</div><form class="auth-form" id="paymentForm"><input id="transactionId" placeholder="Enter Transaction ID / Reference Number" required><input id="paymentPhone" type="tel" value="${getUser().phone||''}" placeholder="Phone number" required><button class="primary">Submit Payment for Review</button></form>`;
- $('paymentForm').onsubmit=e=>{
+ $('paymentForm').onsubmit=async e=>{
    e.preventDefault();
-   const u=getUser(),payments=getPayments();
-   payments.push({id:uid(),name:u.name,email:u.email,phone:paymentPhone.value.trim(),job:selectedJob,method:selectedMethod,number,amount:500,transaction:transactionId.value.trim(),status:'pending',submittedAt:new Date().toISOString()});
-   setPayments(payments);
+   const u=getUser();
+   const paymentRef=push(ref(db,'payments'));
+   await set(paymentRef,{name:u.name,email:u.email,phone:paymentPhone.value.trim(),job:selectedJob,method:selectedMethod,number,amount:500,transaction:transactionId.value.trim(),status:'pending',submittedAt:new Date().toISOString()});
    openModal();
    modalContent.innerHTML=`<div class="application-success"><h2>✓ Payment Submitted</h2><p>Your payment reference has been sent for manual review.</p><p><strong>Next step:</strong> After payment is confirmed, your job application will be unlocked.</p><button class="primary" id="doneBtn">Done</button></div>`;
    $('doneBtn').onclick=hideModal;
@@ -106,11 +119,11 @@ function selectPayment(method,number){
 function showApplication(){
  const u=getUser();openModal();
  modalContent.innerHTML=`<span class="eyebrow">APPLICATION FORM</span><h2>${selectedJob}</h2><div class="notice success-notice">✓ Payment Confirmed — You can now submit your application.</div><form class="auth-form" id="applicationForm"><input id="appName" value="${u.name}" placeholder="Full name" required><input id="appPhone" value="${u.phone||''}" type="tel" placeholder="Phone number" required><input id="appQualification" placeholder="Qualification / Education" required><textarea id="appExperience" rows="4" placeholder="Work experience"></textarea><button class="primary">Submit Application</button></form>`;
- $('applicationForm').onsubmit=e=>{
+ $('applicationForm').onsubmit=async e=>{
    e.preventDefault();
-   const u=getUser(),apps=getApps();
-   apps.push({id:uid(),name:appName.value.trim(),email:u.email,phone:appPhone.value.trim(),job:selectedJob,qualification:appQualification.value.trim(),experience:appExperience.value.trim(),submittedAt:new Date().toISOString()});
-   setApps(apps);
+   const u=getUser();
+   const appRef=push(ref(db,'applications'));
+   await set(appRef,{name:appName.value.trim(),email:u.email,phone:appPhone.value.trim(),job:selectedJob,qualification:appQualification.value.trim(),experience:appExperience.value.trim(),submittedAt:new Date().toISOString()});
    modalContent.innerHTML=`<div class="application-success"><h2>🎉 Application Submitted Successfully!</h2><p>Your application for <strong>${selectedJob}</strong> has been received.</p><p><strong>We will contact you within one week.</strong></p><p class="small-note">Your phone number is recorded so the admin can contact you manually by SMS.</p><button class="primary" id="doneBtn">Done</button></div>`;
    $('doneBtn').onclick=hideModal;
  };
@@ -118,13 +131,12 @@ function showApplication(){
 
 function showAdmin(){
  openModal();
- const payments=getPayments();
- const pending=payments.filter(p=>p.status==='pending');
- const confirmed=payments.filter(p=>p.status==='confirmed');
- modalContent.innerHTML=`<span class="eyebrow">ADMIN PANEL</span><h2>Payment Review</h2><div class="admin-warning">Demo version: review the payment in your wallet manually, then click Confirm Payment.</div><div class="admin-stats"><span>Pending: <strong>${pending.length}</strong></span><span>Confirmed: <strong>${confirmed.length}</strong></span></div><div class="review-list">${payments.length?payments.map(p=>`<div class="review-card"><div><strong>${p.name}</strong><br><small>${p.job} · Rs. ${p.amount}</small><br><small>${p.method} · ${p.transaction}</small><br><small>Phone: ${p.phone}</small></div><div>${p.status==='pending'?`<button class="primary small confirm-btn" data-id="${p.id}">Confirm Payment</button>`:`<span class="confirmed-badge">✓ Confirmed</span>`}</div></div>`).join(''):'<div class="notice">No payment submissions yet.</div>'}</div>`;
- document.querySelectorAll('.confirm-btn').forEach(b=>b.onclick=()=>{
-   const all=getPayments(),i=all.findIndex(x=>x.id===b.dataset.id);
-   if(i>-1){all[i].status='confirmed';all[i].confirmedAt=new Date().toISOString();setPayments(all);showAdmin();}
+ onValue(ref(db,'payments'),snap=>{
+   const payments=snap.exists()?Object.entries(snap.val()).map(([id,v])=>({...v,id})):[];
+   const pending=payments.filter(p=>p.status==='pending');
+   const confirmed=payments.filter(p=>p.status==='confirmed');
+   modalContent.innerHTML=`<span class="eyebrow">ADMIN PANEL</span><h2>Payment Review</h2><div class="admin-warning">Check payment manually in your wallet, then click Confirm Payment.</div><div class="admin-stats"><span>Pending: <strong>${pending.length}</strong></span><span>Confirmed: <strong>${confirmed.length}</strong></span></div><div class="review-list">${payments.length?payments.map(p=>`<div class="review-card"><div><strong>${p.name}</strong><br><small>${p.job} · Rs. ${p.amount}</small><br><small>${p.method} · ${p.transaction}</small><br><small>Phone: ${p.phone}</small></div><div>${p.status==='pending'?`<button class="primary small confirm-btn" data-id="${p.id}">Confirm Payment</button>`:`<span class="confirmed-badge">✓ Confirmed</span>`}</div></div>`).join(''):'<div class="notice">No payment submissions yet.</div>'}</div>`;
+   document.querySelectorAll('.confirm-btn').forEach(b=>b.onclick=async()=>{await update(ref(db,'payments/'+b.dataset.id),{status:'confirmed',confirmedAt:new Date().toISOString()})});
  });
 }
 
