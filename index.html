@@ -3,156 +3,125 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jobs Hub | Find Your Next Opportunity</title>
+  <title>JobsHub — Find Your Next Opportunity</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="topbar">
-    <div class="brand">JOBS<span>HUB</span></div>
-    <nav>
+  <header class="header">
+    <a class="brand" href="#home"><span class="brand-mark">J</span>JobsHub</a>
+    <nav class="nav">
       <a href="#jobs">Browse Jobs</a>
       <a href="#categories">Categories</a>
       <a href="#how">How It Works</a>
     </nav>
-    <a class="post-btn" href="#jobs">Find a Job</a>
+    <div class="header-actions">
+      <button class="link-btn" id="loginBtn">Sign In</button>
+      <button class="primary small" id="createAccountBtn">Create Account</button>
+    </div>
   </header>
 
-  <main>
+  <main id="home">
     <section class="hero">
-      <div class="hero-copy">
-        <div class="badge">NEW OPPORTUNITIES AVAILABLE</div>
-        <h1>Find a Job You’ll <span>Love</span></h1>
-        <p>Browse available opportunities, view job details, and submit your application in a simple process.</p>
-        <div class="search-box">
-          <input id="searchInput" type="text" placeholder="Search jobs, skills or categories" />
-          <button onclick="searchJobs()">Search Jobs</button>
+      <div class="hero-content">
+        <div class="eyebrow">VERIFIED JOB OPPORTUNITIES</div>
+        <h1>Find the job that<br><span>moves your life forward.</span></h1>
+        <p>Search real opportunities, compare salary and requirements, and apply in a simple guided process.</p>
+        <div class="search-panel">
+          <div class="search-field"><span>⌕</span><input id="searchInput" placeholder="Job title, skill or keyword" /></div>
+          <div class="search-field"><span>⌖</span><input id="locationInput" placeholder="City or remote" /></div>
+          <button class="primary" id="searchBtn">Search Jobs</button>
         </div>
         <div class="stats">
-          <div><strong>50+</strong><span>Open Jobs</span></div>
-          <div><strong>10+</strong><span>Categories</span></div>
-          <div><strong>Easy</strong><span>Application</span></div>
+          <div><strong>12,500+</strong><span>Active jobs</span></div>
+          <div><strong>1,200+</strong><span>Companies</span></div>
+          <div><strong>24/7</strong><span>Easy applications</span></div>
         </div>
       </div>
-      <div class="hero-image">
-        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1000&q=85" alt="Professionals working together" />
-        <div class="floating-card">
-          <span>🔥 Popular today</span>
-          <strong>New jobs added</strong>
+      <div class="hero-art">
+        <div class="hero-card main-card">
+          <div class="avatar">💼</div>
+          <div><span>Featured opportunity</span><strong>Build your career</strong></div>
+          <div class="spark">✦</div>
+        </div>
+        <div class="hero-visual">
+          <div class="office"></div>
+          <div class="person person-one"></div>
+          <div class="person person-two"></div>
+          <div class="floating-card card-one">✓ Profile ready</div>
+          <div class="floating-card card-two"><strong>₨ 120K</strong><br><span>Average monthly salary</span></div>
         </div>
       </div>
     </section>
 
-    <section class="categories" id="categories">
-      <div class="section-title">
-        <div><span class="eyebrow">EXPLORE BY FIELD</span><h2>Popular Job Categories</h2></div>
+    <section class="trust">
+      <span>Popular career paths</span>
+      <strong>Engineering</strong><strong>Healthcare</strong><strong>Technology</strong><strong>Finance</strong><strong>Design</strong>
+    </section>
+
+    <section class="section" id="jobs">
+      <div class="section-heading">
+        <div><span class="eyebrow">EXPLORE OPPORTUNITIES</span><h2>Find your perfect job</h2></div>
+        <button class="ghost" id="viewAllBtn">View all jobs →</button>
+      </div>
+
+      <div class="filters">
+        <button class="filter active" data-filter="All">All Jobs</button>
+        <button class="filter" data-filter="Engineering">Engineering</button>
+        <button class="filter" data-filter="Healthcare">Healthcare</button>
+        <button class="filter" data-filter="Technology">Technology</button>
+        <button class="filter" data-filter="Finance">Finance</button>
+        <button class="filter" data-filter="Design">Design</button>
+      </div>
+
+      <div class="job-grid" id="jobGrid"></div>
+    </section>
+
+    <section class="categories section" id="categories">
+      <div class="section-heading">
+        <div><span class="eyebrow">BROWSE BY FIELD</span><h2>What are you looking for?</h2></div>
       </div>
       <div class="category-grid">
-        <button onclick="filterJobs('Office')" class="category"><span>💼</span><b>Office & Admin</b><small>View jobs →</small></button>
-        <button onclick="filterJobs('Technology')" class="category"><span>💻</span><b>Technology</b><small>View jobs →</small></button>
-        <button onclick="filterJobs('Sales')" class="category"><span>📈</span><b>Sales</b><small>View jobs →</small></button>
-        <button onclick="filterJobs('Healthcare')" class="category"><span>🏥</span><b>Healthcare</b><small>View jobs →</small></button>
-        <button onclick="filterJobs('Driving')" class="category"><span>🚚</span><b>Driving</b><small>View jobs →</small></button>
-        <button onclick="filterJobs('Customer')" class="category"><span>🎧</span><b>Customer Service</b><small>View jobs →</small></button>
+        <button>⚙️ <strong>Engineering</strong><span>1,840 jobs</span></button>
+        <button>🩺 <strong>Healthcare</strong><span>1,230 jobs</span></button>
+        <button>💻 <strong>Technology</strong><span>2,110 jobs</span></button>
+        <button>📈 <strong>Finance</strong><span>760 jobs</span></button>
+        <button>🎨 <strong>Design</strong><span>540 jobs</span></button>
+        <button>📣 <strong>Marketing</strong><span>920 jobs</span></button>
       </div>
     </section>
 
-    <section class="jobs-section" id="jobs">
-      <div class="section-title">
-        <div><span class="eyebrow">LATEST OPENINGS</span><h2>Featured Jobs</h2><p>Choose a job that matches your skills and apply directly.</p></div>
-        <button class="outline" onclick="filterJobs('all')">Show All Jobs</button>
+    <section class="how section" id="how">
+      <div class="how-intro">
+        <span class="eyebrow">SIMPLE PROCESS</span>
+        <h2>From search to application<br>in a few simple steps.</h2>
+        <p>Create your profile once, then apply with your information saved securely for future applications.</p>
       </div>
-
-      <div class="jobs-grid" id="jobsGrid">
-        <article class="job-card" data-category="Office">
-          <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=900&q=80" alt="Modern office" />
-          <div class="job-content">
-            <div class="job-meta"><span class="tag">FULL TIME</span><span>📍 Available Location</span></div>
-            <h3>Office Assistant</h3>
-            <p>Support daily office operations and administrative work.</p>
-            <div class="job-footer"><span>💰 Salary details available</span><button onclick="openApply('Office Assistant')">Apply Now</button></div>
-          </div>
-        </article>
-
-        <article class="job-card" data-category="Technology">
-          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80" alt="Technology professional" />
-          <div class="job-content">
-            <div class="job-meta"><span class="tag">FULL TIME</span><span>💻 Technology</span></div>
-            <h3>Computer Operator</h3>
-            <p>Handle computer systems, records, and routine digital tasks.</p>
-            <div class="job-footer"><span>📌 Experience preferred</span><button onclick="openApply('Computer Operator')">Apply Now</button></div>
-          </div>
-        </article>
-
-        <article class="job-card" data-category="Customer">
-          <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=80" alt="Customer service team" />
-          <div class="job-content">
-            <div class="job-meta"><span class="tag">OPEN NOW</span><span>🎧 Customer Service</span></div>
-            <h3>Customer Support Agent</h3>
-            <p>Assist customers and respond to service-related queries.</p>
-            <div class="job-footer"><span>🕒 Multiple shifts</span><button onclick="openApply('Customer Support Agent')">Apply Now</button></div>
-          </div>
-        </article>
-
-        <article class="job-card" data-category="Sales">
-          <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=900&q=80" alt="Business meeting" />
-          <div class="job-content">
-            <div class="job-meta"><span class="tag">HIRING</span><span>📈 Sales</span></div>
-            <h3>Sales Executive</h3>
-            <p>Help grow customer relationships and support sales targets.</p>
-            <div class="job-footer"><span>⭐ Incentives may apply</span><button onclick="openApply('Sales Executive')">Apply Now</button></div>
-          </div>
-        </article>
-
-        <article class="job-card" data-category="Driving">
-          <img src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=900&q=80" alt="Vehicle on road" />
-          <div class="job-content">
-            <div class="job-meta"><span class="tag">FULL TIME</span><span>🚚 Driving</span></div>
-            <h3>Delivery Driver</h3>
-            <p>Deliver assigned orders safely and professionally.</p>
-            <div class="job-footer"><span>🚗 Valid license required</span><button onclick="openApply('Delivery Driver')">Apply Now</button></div>
-          </div>
-        </article>
-
-        <article class="job-card" data-category="Healthcare">
-          <img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=900&q=80" alt="Healthcare professional" />
-          <div class="job-content">
-            <div class="job-meta"><span class="tag">OPEN NOW</span><span>🏥 Healthcare</span></div>
-            <h3>Healthcare Assistant</h3>
-            <p>Support healthcare staff and assist with daily duties.</p>
-            <div class="job-footer"><span>📋 Relevant skills needed</span><button onclick="openApply('Healthcare Assistant')">Apply Now</button></div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="how" id="how">
-      <span class="eyebrow">SIMPLE PROCESS</span>
-      <h2>How Jobs Hub Works</h2>
       <div class="steps">
-        <div><span>01</span><h3>Create Account</h3><p>Enter your basic information securely.</p></div>
-        <div><span>02</span><h3>Choose a Job</h3><p>Review available jobs and their requirements.</p></div>
-        <div><span>03</span><h3>Submit Application</h3><p>Send your application and receive further updates.</p></div>
+        <article><span>01</span><div class="step-icon">👤</div><h3>Create Account</h3><p>Enter your basic details and build your applicant profile.</p></article>
+        <article><span>02</span><div class="step-icon">🔎</div><h3>Choose a Job</h3><p>Review salary, location, qualifications and requirements.</p></article>
+        <article><span>03</span><div class="step-icon">✓</div><h3>Apply & Track</h3><p>Complete the application and receive status updates.</p></article>
       </div>
-      <p class="notice">Important: Applying for a job does not guarantee employment. Any fee or service charge must be clearly explained before payment.</p>
+    </section>
+
+    <section class="cta">
+      <div><span class="eyebrow">YOUR NEXT OPPORTUNITY</span><h2>Ready to find your next job?</h2><p>Create your account and start exploring opportunities today.</p></div>
+      <button class="primary" id="ctaBtn">Get Started Free</button>
     </section>
   </main>
 
-  <div class="modal" id="applyModal">
+  <footer>
+    <a class="brand" href="#home"><span class="brand-mark">J</span>JobsHub</a>
+    <span>© 2026 JobsHub. Demo job portal.</span>
+  </footer>
+
+  <div class="modal hidden" id="modal">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
     <div class="modal-box">
-      <button class="close" onclick="closeModal()">×</button>
-      <span class="eyebrow">JOB APPLICATION</span>
-      <h2 id="jobTitle">Apply</h2>
-      <form onsubmit="submitApplication(event)">
-        <input required placeholder="Full Name" />
-        <input required type="email" placeholder="Email Address" />
-        <input required placeholder="Phone Number" />
-        <button type="submit">Continue Application</button>
-      </form>
-      <p class="small">You should only proceed after reviewing the job details and any clearly disclosed terms.</p>
+      <button class="close" id="closeModal">×</button>
+      <div id="modalContent"></div>
     </div>
   </div>
 
-  <footer>© 2026 Jobs Hub — Find Your Next Opportunity</footer>
   <script src="script.js"></script>
 </body>
 </html>
